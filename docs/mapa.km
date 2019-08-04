@@ -1,0 +1,161 @@
+{
+    "root": {
+        "data": {
+            "id": "bw05ivz807k0",
+            "created": 1564851398061,
+            "text": "Banco"
+        },
+        "children": [
+            {
+                "data": {
+                    "id": "bw05j8my5mo0",
+                    "created": 1564851425617,
+                    "text": "Compra 01"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "bw05jou2nsw0",
+                            "created": 1564851460876,
+                            "text": "Id"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "bw05jq3bfb40",
+                            "created": 1564851463612,
+                            "text": "Nome"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "bw05js0inq00",
+                            "created": 1564851467796,
+                            "text": "Data"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "bw05kstbpsw0",
+                            "created": 1564851547902,
+                            "text": "Valor Total"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "bw05jsob98g0",
+                            "created": 1564851469235,
+                            "text": "Lista de Produtos"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "bw05k3jixd40",
+                                    "created": 1564851492890,
+                                    "text": "Id"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "bw05k5e8pf40",
+                                    "created": 1564851496924,
+                                    "text": "IdCompra"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "bw05kibabc00",
+                                    "created": 1564851525044,
+                                    "text": "Corredor"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "bw05kjxnq6o0",
+                                    "created": 1564851528573,
+                                    "text": "Nome"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "bw05km1qk3s0",
+                                    "created": 1564851533174,
+                                    "text": "Valor unitario"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "bw05kp7wty80",
+                                    "created": 1564851540077,
+                                    "text": "Qtde"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "bw05kqo1vrs0",
+                                    "created": 1564851543230,
+                                    "text": "Valor Total"
+                                },
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "bw05jaizx880",
+                    "created": 1564851429732,
+                    "text": "Compra N",
+                    "layout_right_offset": {
+                        "x": -462,
+                        "y": -221
+                    }
+                },
+                "children": []
+            },
+            {
+                "data": {
+                    "id": "bw05mc3b5zs0",
+                    "created": 1564851668229,
+                    "text": "Chaves",
+                    "layout_right_offset": {
+                        "x": 937.416625467027,
+                        "y": 178.5000047807889
+                    }
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "bw05mpobdyo0",
+                            "created": 1564851697797,
+                            "text": "Compra Nº"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "bw05mw54yso0",
+                            "created": 1564851711875,
+                            "text": "Compra Prod"
+                        },
+                        "children": []
+                    }
+                ]
+            }
+        ]
+    },
+    "template": "right",
+    "theme": "fresh-blue",
+    "version": "1.4.43"
+}
