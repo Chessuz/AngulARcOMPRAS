@@ -7,7 +7,7 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
     <ion-item>
         <ion-label position="floating">Corredor</ion-label>
         <ion-input type="number" value="{{ GetProximoCorredor() }}"></ion-input>
@@ -15,6 +15,72 @@
 
     <ion-item>
         <ion-label position="floating">Produto</ion-label>
-        <ion-input type="text" value="dsadjosaidjoas"></ion-input>
+        <ion-input type="text" value=""></ion-input>
     </ion-item>
+
+    <ion-item>
+        <ion-label position="floating">Valor</ion-label>
+        <ion-input
+            [(ngModel)]="this.itemAtual.Valor"
+            (ionChange)="CalcValorTotal()"
+            type="number"
+            value="{{ this.itemAtual.Valor }}"
+        ></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label position="floating">Quantidade</ion-label>
+        <ion-input
+            [(ngModel)]="this.itemAtual.Quantidade"
+            (ionChange)="CalcValorTotal()"
+            type="number"
+            value="{{ this.itemAtual.Quantidade }}"
+        ></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label position="floating">Total</ion-label>
+        <ion-input
+            value="{{ this.itemAtual.ValorTotal | currency: 'R$' }}"
+            disabled
+        ></ion-input>
+    </ion-item>
+
+    <ion-grid fixed>
+        <ion-row>
+            <ion-col align-self-start
+                ><ion-button expand="full" (click)="onClick()">
+                    Limpar
+                </ion-button></ion-col
+            >
+            <ion-col align-self-end
+                ><ion-button expand="full" (click)="onClick()">
+                    Gravar
+                </ion-button></ion-col
+            >
+        </ion-row>
+
+        <ion-row>
+            <ion-col size="12">
+                <ion-button expand="full" (click)="onClick()">
+                    Finalizar Compra
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-tabs>
+        <ion-tab-bar slot="bottom">
+            <ion-tab tab="tab-comprar">
+                <ion-icon name="cart"></ion-icon>
+                <ion-label>Comprar</ion-label>
+                <!-- <ion-badge>6</ion-badge> -->
+            </ion-tab>
+
+            <ion-tab tab="tab-lista-itens">
+                <ion-icon name="list"></ion-icon>
+                <ion-label>Comprados</ion-label>
+            </ion-tab>
+        </ion-tab-bar>
+    </ion-tabs>
 </ion-content>

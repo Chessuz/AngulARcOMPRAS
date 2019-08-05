@@ -1,3 +1,5 @@
+import { formatCurrency } from "@angular/common";
+
 export class Item {
     Id: number;
     idCompra: number;
@@ -6,4 +8,8 @@ export class Item {
     Valor: number;
     Quantidade: number;
     ValorTotal: number;
+
+    ValorTotalFormatado(): string {
+        return formatCurrency(this.ValorTotal, "BRL", "R$");
+    }
 }

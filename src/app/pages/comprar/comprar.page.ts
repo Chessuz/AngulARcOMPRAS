@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { DatabaseService } from "../../services/database.service";
 import { Compra } from "src/app/classes/compra";
 import { Item } from "src/app/classes/item";
+import { timingSafeEqual } from "crypto";
 
 @Component({
     selector: "app-comprar",
@@ -14,10 +15,17 @@ export class ComprarPage implements OnInit {
     public valorTotalAtual: number = 123.45;
     public itensCompra: Item[];
     public proximoCorredor: number;
+    public itemAtual: Item;
 
     constructor(private databaseService: DatabaseService) {}
 
     async ngOnInit() {
+        this.itemAtual = new Item();
+        this.itemAtual.Valor = 2.5;
+        this.itemAtual.Quantidade = 3;
+        this.itemAtual.ValorTotal =
+            this.itemAtual.Valor * this.itemAtual.Quantidade;
+
         this.compras = await this.databaseService.GetCompras();
         this.compraAtual = this.databaseService.GetCompraAberta(this.compras);
         this.itensCompra = await this.databaseService.GetProdutosCompra(
@@ -33,5 +41,10 @@ export class ComprarPage implements OnInit {
     GetProximoCorredor() {
         return this.proximoCorredor;
         // return this.databaseService.GetUltimoCorredor(this.itensCompra);
+    }
+
+    CalcValorTotal() {
+        this.itemAtual.ValorTotal =
+            this.itemAtual.Valor * this.itemAtual.Quantidade;
     }
 }
