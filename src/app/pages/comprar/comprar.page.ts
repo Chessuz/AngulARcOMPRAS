@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { DatabaseService } from "../../services/database.service";
 import { Compra } from "src/app/classes/compra";
 import { Item } from "src/app/classes/item";
-import { timingSafeEqual } from "crypto";
 
 @Component({
     selector: "app-comprar",

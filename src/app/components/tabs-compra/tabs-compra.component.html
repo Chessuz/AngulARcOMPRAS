@@ -1,0 +1,23 @@
+<ion-tabs>
+    <ion-tab-bar slot="bottom">
+        <ion-tab-button
+            tab="tab-comprar"
+            [routerLink]="['/comprar']"
+            selected="{{ !this.paiEhLista }}"
+        >
+            <!-- <ion-tab-button tab="tab-comprar"> -->
+            <ion-icon name="cart"></ion-icon>
+            <ion-label>Comprar</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button
+            tab="tab-lista-itens"
+            [routerLink]="['/lista-itens']"
+            selected="{{ this.paiEhLista }}"
+        >
+            <!-- <ion-tab-button tab="tab-lista-itens"> -->
+            <ion-icon name="list"></ion-icon>
+            <ion-label>Comprados</ion-label>
+        </ion-tab-button>
+    </ion-tab-bar>
+</ion-tabs>
