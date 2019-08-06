@@ -1,9 +1,38 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>listaItens</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button *ngIf="origemEhListaCompra"></ion-back-button>
+        </ion-buttons>
+        <ion-title> Total = {{ compra.ValorTotal | currency: "R$" }}</ion-title>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
+    <ion-list *ngFor="let i of itens">
+        <ion-list-header *ngIf="mostrarHeaderCorredor(i)">
+            <ion-label>
+                <h1>Corredor: {{ i.Corredor }}</h1>
+            </ion-label>
+        </ion-list-header>
 
+        <ion-item>
+            <ion-label>
+                <h2>{{ i.Produto }}</h2>
+                <p>{{ i.ValorTotal | currency: "R$" }}</p>
+            </ion-label>
+            <ion-button
+                slot="end"
+                (click)="onClick()"
+                *ngIf="!origemEhListaCompra"
+            >
+                <ion-icon slot="icon-only" name="trash"></ion-icon>
+            </ion-button>
+        </ion-item>
+    </ion-list>
 </ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <app-tabs-compra [paiEhLista]="true"></app-tabs-compra>
+    </ion-toolbar>
+</ion-footer>

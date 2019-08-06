@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, ElementRef } from "@angular/core";
+import { Compra } from "src/app/classes/compra";
 
 @Component({
     selector: "app-tabs-compra",
@@ -6,12 +7,9 @@ import { Component, OnInit, Input, ElementRef } from "@angular/core";
     styleUrls: ["./tabs-compra.component.scss"]
 })
 export class TabsCompraComponent implements OnInit {
-    public paiEhLista: boolean;
+    @Input() paiEhLista: boolean;
 
-    constructor(elementRef: ElementRef) {
-        this.paiEhLista =
-            elementRef.nativeElement.localName == "app-lista-itens";
-    }
+    constructor() {}
 
     ngOnInit() {}
 }

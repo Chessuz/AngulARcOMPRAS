@@ -1,4 +1,7 @@
-import { Injectable } from "@angular/core";
+import {
+    Injectable,
+    ɵSWITCH_TEMPLATE_REF_FACTORY__POST_R3__
+} from "@angular/core";
 import { Storage } from "@ionic/storage";
 import { Compra } from "../classes/compra";
 import { Item } from "../classes/item";
@@ -7,6 +10,9 @@ import { Item } from "../classes/item";
     providedIn: "root"
 })
 export class DatabaseService {
+    private CompraListaItens: Compra;
+    private ItensListaCompra: Item[];
+
     constructor(private storage: Storage) {
         this.MockDataCompras();
         this.MockDataItens();
@@ -40,7 +46,7 @@ export class DatabaseService {
         let itemId: number = 0;
 
         for (let idxCompra = 0; idxCompra < QTD_COMPRAS; idxCompra++) {
-            qtdItens = Math.floor(Math.random() * 10) + 1;
+            qtdItens = Math.floor(Math.random() * 10) + 4;
 
             for (let index = 0; index < qtdItens; index++) {
                 item = new Item();
@@ -83,6 +89,7 @@ export class DatabaseService {
                 return;
             }
         });
+
         return compra;
     }
 
@@ -107,5 +114,24 @@ export class DatabaseService {
 
         corredores = Itens.map(v => v.Corredor).sort();
         return corredores[corredores.length - 1];
+    }
+
+    SetCompraListaItens(compra: Compra, itens: Item[]) {
+        this.CompraListaItens = compra;
+        this.ItensListaCompra = itens;
+    }
+
+    GetCompraListaItens(): Array<any> {
+        let tempArray: Array<any> = new Array();
+
+        tempArray.push(this.CompraListaItens);
+        tempArray.push(this.ItensListaCompra);
+        return tempArray;
+    }
+
+    SortItensByCorredor(itens: Item[]): Item[] {
+        return itens.sort(function(a, b) {
+            return a.Corredor - b.Corredor;
+        });
     }
 }

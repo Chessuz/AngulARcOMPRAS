@@ -35,6 +35,11 @@ export class ComprarPage implements OnInit {
         this.proximoCorredor = this.databaseService.GetUltimoCorredor(
             this.itensCompra
         );
+
+        this.databaseService.SetCompraListaItens(
+            this.compraAtual,
+            this.itensCompra
+        );
     }
 
     GetProximoCorredor() {
