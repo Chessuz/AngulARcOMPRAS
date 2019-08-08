@@ -17,4 +17,11 @@
     >
         Comprar
     </ion-button>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button><ion-icon name="color-fill"></ion-icon></ion-fab-button>
+        <ion-fab-list side="top">
+            <ion-fab-button (click)="AddTema()">2</ion-fab-button>
+            <ion-fab-button (click)="RemoveTema()">1</ion-fab-button>
+        </ion-fab-list>
+    </ion-fab>
 </ion-content>

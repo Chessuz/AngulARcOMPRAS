@@ -26,6 +26,7 @@
     "@ionic/angular": "^4.7.1",
     "@ionic/storage": "^2.2.0",
     "cordova-android": "8.0.0",
+    "cordova-browser": "^6.0.0",
     "cordova-sqlite-storage": "^3.2.1",
     "core-js": "^2.5.4",
     "rxjs": "~6.5.1",
@@ -78,7 +79,8 @@
       "cordova-plugin-ionic-keyboard": {}
     },
     "platforms": [
-      "android"
+      "android",
+      "browser"
     ]
   }
 }

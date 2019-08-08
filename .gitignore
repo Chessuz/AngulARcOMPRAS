@@ -25,6 +25,8 @@ tmp/
 temp/
 platforms/
 plugins/
+resources/android/icon/*.*
+resources/ios/icon/
 plugins/android.json
 plugins/ios.json
 $RECYCLE.BIN/
@@ -32,3 +34,6 @@ $RECYCLE.BIN/
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
+
+resources/android/icon/
+resources/android/icon/drawable-hdpi-icon.png
