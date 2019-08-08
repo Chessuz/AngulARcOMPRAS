@@ -3,26 +3,36 @@
         <ion-buttons slot="start">
             <ion-back-button defaultHref="home"></ion-back-button>
         </ion-buttons>
-        <ion-title> Total = {{ valorTotalAtual | currency: "R$" }}</ion-title>
+        <ion-title *ngIf="DadosCarregados()">
+            {{ compraAtual.Nome }}
+            ({{ compraAtual.ValorTotal | currency: "R$" }})</ion-title
+        >
     </ion-toolbar>
 </ion-header>
-
-<ion-content padding>
+<ion-content padding *ngIf="DadosCarregados()">
     <ion-item>
         <ion-label position="floating">Corredor</ion-label>
-        <ion-input type="number" value="{{ GetProximoCorredor() }}"></ion-input>
+        <ion-input
+            [(ngModel)]="this.itemAtual.Corredor"
+            type="number"
+            value="{{ this.itemAtual.Corredor }}"
+        ></ion-input>
     </ion-item>
 
     <ion-item>
         <ion-label position="floating">Produto</ion-label>
-        <ion-input type="text" value=""></ion-input>
+        <ion-input
+            [(ngModel)]="this.itemAtual.Produto"
+            type="text"
+            value="{{ this.itemAtual.Produto }}"
+        ></ion-input>
     </ion-item>
 
     <ion-item>
         <ion-label position="floating">Valor</ion-label>
         <ion-input
             [(ngModel)]="this.itemAtual.Valor"
-            (ionChange)="CalcValorTotal()"
+            (ionChange)="CalcValorTotalItem()"
             type="number"
             value="{{ this.itemAtual.Valor }}"
         ></ion-input>
@@ -32,7 +42,7 @@
         <ion-label position="floating">Quantidade</ion-label>
         <ion-input
             [(ngModel)]="this.itemAtual.Quantidade"
-            (ionChange)="CalcValorTotal()"
+            (ionChange)="CalcValorTotalItem()"
             type="number"
             value="{{ this.itemAtual.Quantidade }}"
         ></ion-input>
@@ -49,12 +59,12 @@
     <ion-grid fixed>
         <ion-row>
             <ion-col align-self-start
-                ><ion-button expand="full" (click)="onClick()">
+                ><ion-button expand="full" (click)="LimparItem()">
                     Limpar
                 </ion-button></ion-col
             >
             <ion-col align-self-end
-                ><ion-button expand="full" (click)="onClick()">
+                ><ion-button expand="full" (click)="GravarItem()">
                     Gravar
                 </ion-button></ion-col
             >
@@ -62,7 +72,7 @@
 
         <ion-row>
             <ion-col size="12">
-                <ion-button expand="full" (click)="onClick()">
+                <ion-button expand="full" (click)="GravarCompra()">
                     Finalizar Compra
                 </ion-button>
             </ion-col>

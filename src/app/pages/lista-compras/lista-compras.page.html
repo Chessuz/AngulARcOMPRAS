@@ -3,8 +3,24 @@
         <ion-buttons slot="start">
             <ion-back-button defaultHref="home"></ion-back-button>
         </ion-buttons>
-        <ion-title>listaCompras</ion-title>
+        <ion-title> Lista de Compras</ion-title>
     </ion-toolbar>
 </ion-header>
 
-<ion-content> </ion-content>
+<ion-content padding *ngIf="this.compras !== undefined">
+    <ion-list *ngFor="let compra of compras; index as i">
+        <ion-ripple-effect></ion-ripple-effect>
+        <ion-item button (click)="MostrarDetalhesVenda(compra)">
+            <ion-icon
+                slot="end"
+                name="{{ IconeCompraFinalizada(compra.Finalizada) }}"
+            >
+            </ion-icon>
+
+            <ion-label>
+                <h2>{{ compra.Nome }}</h2>
+                <p>{{ compra.ValorTotal | currency: "R$" }}</p>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+</ion-content>

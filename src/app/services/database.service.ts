@@ -1,22 +1,19 @@
-import {
-    Injectable,
-    ɵSWITCH_TEMPLATE_REF_FACTORY__POST_R3__
-} from "@angular/core";
+import { Injectable } from "@angular/core";
 import { Storage } from "@ionic/storage";
 import { Compra } from "../classes/compra";
 import { Item } from "../classes/item";
+import { from, Observable } from "rxjs";
+import { tap, take } from "rxjs/operators";
 
 @Injectable({
     providedIn: "root"
 })
 export class DatabaseService {
+    private ComprasListaItens: Compra[];
     private CompraListaItens: Compra;
     private ItensListaCompra: Item[];
 
-    constructor(private storage: Storage) {
-        this.MockDataCompras();
-        this.MockDataItens();
-    }
+    constructor(private storage: Storage) {}
 
     MockDataCompras() {
         const QTD_COMPRAS = 3;
@@ -35,7 +32,7 @@ export class DatabaseService {
 
             compras.push(compra);
         }
-        this.storage.set("Compras", compras);
+        this.GravarComprasDB(compras);
     }
 
     MockDataItens() {
@@ -63,60 +60,53 @@ export class DatabaseService {
 
                 itens.push(item);
             }
-        }
 
-        console.log("QtdTotalItens", itens.length);
-        this.storage.set("Itens", itens);
+            this.GravarItensDB(itens, idxCompra);
+            itens = [];
+        }
     }
 
-    async GetCompras(): Promise<Compra[]> {
-        let dados: any;
-        let compras: Compra[];
-        await this.storage
-            .get("Compras")
-            .then(data => (dados = data), error => console.error(error));
+    GetCompras(): Observable<Compra[]> {
+        let observableFromPromise: Observable<Compra[]> = from(
+            this.storage.get("Compras").then()
+        );
 
-        compras = new Array(...dados);
-        return compras;
+        return observableFromPromise;
     }
 
     GetCompraAberta(compras: Compra[]): Compra {
         let compra: Compra;
-
+        let ultimoIdCompra: number;
         compras.forEach(e => {
             if (!e.Finalizada) {
                 compra = e;
                 return;
             }
         });
-
         return compra;
     }
 
-    async GetProdutosCompra(compra: Compra): Promise<Item[]> {
-        let dados: any;
-        let itens: Item[];
-        await this.storage
-            .get("Itens")
-            .then(data => (dados = data), error => console.error(error));
-
-        itens = new Array(...dados);
-        console.log("QtdTotalItens", itens.length);
-
-        itens = itens.filter(v => v.idCompra == compra.Id);
-        console.log("QtdFiltrada", itens.length);
-
-        return itens;
+    GetProdutosCompra(compra: Compra): Observable<Item[]> {
+        let observableFromPromise: Observable<Item[]> = from(
+            this.storage
+                .get(`Itens-Cp=${compra.Id}`)
+                .then(data =>
+                    !data ? (data = new Array()) : (data = new Array(...data))
+                )
+        );
+        return observableFromPromise;
     }
 
     GetUltimoCorredor(Itens: Item[]): number {
-        let corredores: number[] = new Array();
-
-        corredores = Itens.map(v => v.Corredor).sort();
-        return corredores[corredores.length - 1];
+        let ultimoCorredor: number = Math.max.apply(
+            Math,
+            Itens.map((i: Item) => i.Corredor)
+        );
+        return ultimoCorredor;
     }
 
-    SetCompraListaItens(compra: Compra, itens: Item[]) {
+    SetCompraListaItens(compras: Compra[], compra: Compra, itens: Item[]) {
+        this.ComprasListaItens = compras;
         this.CompraListaItens = compra;
         this.ItensListaCompra = itens;
     }
@@ -124,6 +114,7 @@ export class DatabaseService {
     GetCompraListaItens(): Array<any> {
         let tempArray: Array<any> = new Array();
 
+        tempArray.push(this.ComprasListaItens);
         tempArray.push(this.CompraListaItens);
         tempArray.push(this.ItensListaCompra);
         return tempArray;
@@ -133,5 +124,41 @@ export class DatabaseService {
         return itens.sort(function(a, b) {
             return a.Corredor - b.Corredor;
         });
+    }
+
+    CriarNovaCompra(ultimoIndex: number): Compra {
+        let compra: Compra = new Compra();
+        let myDate: Date;
+        let index: number = ultimoIndex + 1;
+
+        myDate = new Date();
+        compra = new Compra();
+        compra.Id = index;
+        compra.Data = myDate.toJSON();
+        compra.Nome = `Compra ${index}`;
+        compra.ValorTotal = 0;
+        compra.Finalizada = false;
+
+        return compra;
+    }
+
+    GravarComprasDB(compras: Compra[], compra?: Compra) {
+        if (compra) {
+            compras.forEach(v => {
+                if (v.Id == compra.Id) {
+                    Object.assign(v, compra);
+                }
+            });
+        }
+        this.storage.set("Compras", compras);
+    }
+
+    GravarItensDB(itens: Item[], idxCompra: number, compra?: Compra) {
+        this.storage.set(`Itens-Cp=${idxCompra}`, itens);
+
+        if (compra) {
+            compra.ValorTotal = 0;
+            itens.forEach(v => (compra.ValorTotal += v.ValorTotal));
+        }
     }
 }

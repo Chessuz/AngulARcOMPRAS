@@ -8,21 +8,22 @@
 </ion-header>
 
 <ion-content padding>
-    <ion-list *ngFor="let i of itens">
-        <ion-list-header *ngIf="mostrarHeaderCorredor(i)">
+    <ion-list *ngFor="let item of itens; index as i">
+        <ion-list-header *ngIf="mostrarHeaderCorredor(item)">
             <ion-label>
-                <h1>Corredor: {{ i.Corredor }}</h1>
+                <h1>Corredor: {{ item.Corredor }}</h1>
             </ion-label>
         </ion-list-header>
 
         <ion-item>
             <ion-label>
-                <h2>{{ i.Produto }}</h2>
-                <p>{{ i.ValorTotal | currency: "R$" }}</p>
+                <h2>{{ item.Produto }}</h2>
+                <p>{{ item.ValorTotal | currency: "R$" }}</p>
+                <p>{{ i }}</p>
             </ion-label>
             <ion-button
                 slot="end"
-                (click)="onClick()"
+                (click)="excluirItem(i)"
                 *ngIf="!origemEhListaCompra"
             >
                 <ion-icon slot="icon-only" name="trash"></ion-icon>
@@ -31,7 +32,7 @@
     </ion-list>
 </ion-content>
 
-<ion-footer>
+<ion-footer *ngIf="!origemEhListaCompra">
     <ion-toolbar>
         <app-tabs-compra [paiEhLista]="true"></app-tabs-compra>
     </ion-toolbar>
